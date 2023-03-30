@@ -2,33 +2,20 @@
 
 class Program
 {
-    private static long X { get; set; }
-    private static long Y { get; set; }
-
     static void Main(string[] args)
     {
         string[] size = args[0].Split('x');
-        X = Convert.ToInt64(size[0]);
-        Y = Convert.ToInt64(size[1]);
+        var x = Convert.ToInt64(size[0]);
+        var y = Convert.ToInt64(size[1]);
 
-        Robot robot = new Robot();
+        Map map = new Map(x, y);
+
+        Robot robot = new Robot(map);
 
         char[] directions =
-            args[1].ToCharArray();
+            args[1].ToCharArray();        
 
-        foreach (char dirr in directions)
-        {
-            if(dirr == 'F')
-            {
-                robot.MoveForward(X, Y);
-            }
-            else
-            {
-                robot.Turn(dirr);
-            }
-        }
-
-        Console.WriteLine(robot.X + " " + robot.Y + " " + robot.Direction.ToString());
+        Console.WriteLine(robot.ReturnCoordinates());
         Console.ReadLine();
     }
 }

@@ -1,61 +1,75 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Mars_Robot.Interfaces;
 
 namespace Mars_Robot
 {
-     public class Robot
+     public class Robot : IRobot
     {
+        public IMap Map { get; set; }
         public Direction Direction { get; set; }
         public long X { get; set; }
         public long Y { get; set; }
 
 
-        public Robot()
+        public Robot(IMap map)
         {
+            Map = map;
             Direction = Direction.North;
             X = 1;
             Y = 1;
         }
 
-        public void MoveForward(long maxX, long maxY)
+        public void RunInstructions(char[] instructions)
         {
-            switch (this.Direction)
+            foreach (char dirr in instructions)
+            {
+                if (dirr == 'F')
+                {
+                    MoveForward();
+                }
+                else
+                {
+                    Turn(dirr);
+                }
+            }
+        }
+
+        public string ReturnCoordinates()
+        {
+            return X + " " + Y + " " + Direction.ToString();
+        }
+
+        private void MoveForward()
+        {
+            switch (Direction)
             {
                 case Direction.North:
-                    if(Y == maxY)
+                    if(Map.ValidMove(X, Y + 1))
                     {
-                        return;
-                    }
-                    Y++;
+                        Y++;
+                    }                    
                     break;
                 case Direction.West:
-                    if (X == 1)
+                    if (Map.ValidMove(X - 1, Y))
                     {
-                        return;
-                    }
-                    X--;
+                        X--;
+                    }                   
                     break;
                 case Direction.South:
-                    if (Y == 1)
+                    if (Map.ValidMove(X, Y - 1))
                     {
-                        return;
+                        Y--;
                     }
-                    Y--;
                     break;
                 case Direction.East:
-                    if (X == maxX)
+                    if (Map.ValidMove(X + 1, Y))
                     {
-                        return;
+                        X++;
                     }
-                    X++;
                     break;
             }
         }
 
-        public void Turn(char direction)
+        private void Turn(char direction)
         {
             switch (direction)
             {

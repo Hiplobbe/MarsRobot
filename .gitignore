@@ -1,3 +1,7 @@
 Mars Robot/bin/*
 Mars Robot/obj/*
 Mars Robot/.vs/*
+RobotTest/bin/*
+RobotTest/obj/*
+.vs/*
+packages/*

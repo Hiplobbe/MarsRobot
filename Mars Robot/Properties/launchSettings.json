@@ -1,8 +1,7 @@
 {
   "profiles": {
     "Mars Robot": {
-      "commandName": "Project",
-      "commandLineArgs": "5x5 FFRFLFLF"
+      "commandName": "Project"
     }
   }
 }
